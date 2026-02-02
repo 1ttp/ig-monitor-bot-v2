@@ -19,8 +19,8 @@ module.exports = {
   addAccount: (username, channelId, followers) => {
     db.prepare(`
       INSERT OR REPLACE INTO accounts (username, channelId, followers, startTime, lastStatus) 
-      VALUES (?, ?, ?, CURRENT_TIMESTAMP, 'active')
-    `).run(username.toLowerCase(), channelId, followers);
+      VALUES (?, ?, ?, CURRENT_TIMESTAMP, ?)
+    `).run(username.toLowerCase(), channelId, followers, 'active');
   },
   getAccounts: () => db.prepare('SELECT * FROM accounts WHERE failCount < 3').all(),
   updateStatus: (username, status) => {
