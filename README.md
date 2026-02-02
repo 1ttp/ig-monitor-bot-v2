@@ -36,7 +36,7 @@ npm start
 | `!banwatch <username>` | **Active → BANNED** | `!banwatch instagram` | 🚫 **BANNED!** |
 | `!unbanwatch <username>` | **BANNED → Active** | `!unbanwatch banneduser` | ✅ **UNBANNED!** |
 
-💎 Sample Alerts
+##  💎 Sample Alerts
 
 Ban Monitoring Started:
 👀 INSTAGRAM - MONITORING STARTED
@@ -62,7 +62,7 @@ Unban Monitoring Started:
 ⏱️ Time Tracked: 4h 12m
 📅 Active: Feb 2, 2026 11:35 PM
 
-⚙️ Complete Setup
+## ⚙️ Complete Setup
 
 1. Discord Bot Creation
 1. https://discord.com/developers/applications → New Application
@@ -86,7 +86,7 @@ cp .env.example .env
 termux-wake-lock
 npm start
 
-🛠️ File Structure
+## 🛠️ File Structure
 ├── bot.js          # Main Discord bot
 ├── db.js           # SQLite database
 ├── .env.example    # Token template
@@ -109,4 +109,4 @@ npm start
 | **Slow Checks** | >10 min between checks | Normal human-like timing (4-10 mins random) |
 
 📄 LicenseMIT License - Free for commercial use.
-🎖️ Created by BrahmjotCodez(1ttp)
+## 🎖️ Created by BrahmjotCodez(1ttp)
