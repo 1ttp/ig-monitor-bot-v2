@@ -27,7 +27,7 @@ cd ig-monitor-bot-v2
 npm install
 cp .env.example .env
 # Edit .env → Add your Discord bot token
-npm start
+npm start```
 
 ## 📱 **Commands**
 
