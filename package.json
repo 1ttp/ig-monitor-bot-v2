@@ -6,13 +6,11 @@ cat > package.json << 'EOF'
   "main": "bot.js",
   "scripts": {
     "start": "node bot.js",
-    "dev": "nodemon bot.js",
-    "reset": "rm -f watchlist.db"
+    "reset": "rm -f watchlist.json"
   },
   "dependencies": {
     "discord.js": "^14.14.1",
-    "dotenv": "^16.3.1",
-    "sqlite3": "^5.1.7"
+    "dotenv": "^16.3.1"
   },
   "author": "BrahmjotCodez(1ttp)"
 }
