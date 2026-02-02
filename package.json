@@ -1,3 +1,4 @@
+cat > package.json << 'EOF'
 {
   "name": "ig-monitor-bot-v2",
   "version": "2.0.0",
@@ -15,3 +16,4 @@
   },
   "author": "BrahmjotCodez(1ttp)"
 }
+EOF
