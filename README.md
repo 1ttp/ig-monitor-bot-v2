@@ -19,26 +19,27 @@
 | ☁️ **VPS/Cloud Ready** | ✅ |
 | 🚫 **No Proxy Needed** | ✅ (7-14 days) |
 
-## 🚀 **# QUICK START (90 SECONDS)**
+## 🚀 **QUICK START** *(90 seconds)*
 
 ```bash
-**git clone https://github.com/1ttp/ig-monitor-bot-v2**
-**cd ig-monitor-bot-v2**
-**npm install**
-**cp .env.example .env**
-# Edit .env → Add your Discord bot token
-**npm start**
+git clone https://github.com/1ttp/ig-monitor-bot-v2
+cd ig-monitor-bot-v2
+npm install
+cp .env.example .env
+# Add your Discord token to .env
+npm start
 
- ## 📱 **# COMMANDS** *(Click to copy!)*
+## Commands
 
-<div align="center">
+| Command | Description | Usage | Access |
+|---------|-------------|-------|--------|
+| `!banwatch` | Monitor an Instagram account for bans | `!banwatch <username>` | All allowed users |
+| `!unbanwatch` | Monitor a banned account for reactivation | `!unbanwatch <username>` | All allowed users |
+| `!banlist` | View all accounts being monitored for bans | `!banlist` | All allowed users |
+| `!unbanlist` | View all accounts being monitored for unbans | `!unbanlist` | All allowed users |
+| `!giveaccess` | Grant bot access to a new user | `!giveaccess <user_id>` | Admin only |
+| `!help` | Display help message with all commands | `!help` | All users |
+| `!fake` | Generate a test embed (demo purposes) | `!fake` | All allowed users |
 
-| **Command** | **Monitors** | **Example** | **Alert Trigger** |
-|-------------|--------------|-------------|-------------------|
-| `!banwatch &lt;username&gt;` | **Active → BANNED** | `!banwatch instagram` | **🚫 BANNED!** |
-| `!unbanwatch &lt;username&gt;` | **BANNED → Active** | `!unbanwatch banneduser` | **✅ UNBANNED!** |
 
-</div>
-
-
-
+🎖️ BrahmjotCodez(1ttp)
