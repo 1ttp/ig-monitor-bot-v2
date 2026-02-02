@@ -15,36 +15,26 @@ db.serialize(() => {
   )`);
 });
 
-function addAccount(username, channelId, followers, callback) {
-  db.run(`INSERT OR REPLACE INTO accounts (username, channelId, followers, startTime, lastStatus) 
-          VALUES (?, ?, ?, datetime('now'), ?)`,
-    [username.toLowerCase(), channelId, followers, 'active'], callback);
-}
-
-function getAccounts(callback) {
-  db.all('SELECT * FROM accounts WHERE failCount < 3', callback);
-}
-
-function updateStatus(username, status, callback) {
-  db.run(`UPDATE accounts SET lastStatus = ?, lastChangeTime = datetime('now'), failCount = 0 
-          WHERE username = ?`, [status, username.toLowerCase()], callback);
-}
-
-function incrementFail(username, callback) {
-  db.run('UPDATE accounts SET failCount = failCount + 1 WHERE username = ?', 
-    [username.toLowerCase()], callback);
-}
-
-function updateFollowers(username, followers, callback) {
-  db.run('UPDATE accounts SET followers = ? WHERE username = ?', 
-    [followers, username.toLowerCase()], callback);
-}
-
-function getAccount(username, callback) {
-  db.get('SELECT * FROM accounts WHERE username = ?', [username.toLowerCase()], callback);
-}
-
 module.exports = {
-  addAccount, getAccounts, updateStatus, incrementFail, 
-  updateFollowers, getAccount
+  addAccount: (username, channelId, followers, callback) => {
+    db.run(`INSERT OR REPLACE INTO accounts (username, channelId, followers, startTime, lastStatus) 
+            VALUES (?, ?, ?, datetime('now'), ?)`,
+      [username.toLowerCase(), channelId, followers, 'active'], callback);
+  },
+  getAccounts: (callback) => db.all('SELECT * FROM accounts WHERE failCount < 3', callback),
+  updateStatus: (username, status, callback) => {
+    db.run(`UPDATE accounts SET lastStatus = ?, lastChangeTime = datetime('now'), failCount = 0 
+            WHERE username = ?`, [status, username.toLowerCase()], callback);
+  },
+  incrementFail: (username, callback) => {
+    db.run('UPDATE accounts SET failCount = failCount + 1 WHERE username = ?', 
+      [username.toLowerCase()], callback);
+  },
+  updateFollowers: (username, followers, callback) => {
+    db.run('UPDATE accounts SET followers = ? WHERE username = ?', 
+      [followers, username.toLowerCase()], callback);
+  },
+  getAccount: (username, callback) => {
+    db.get('SELECT * FROM accounts WHERE username = ?', [username.toLowerCase()], callback);
+  }
 };
