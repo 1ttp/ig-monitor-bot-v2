@@ -1,0 +1,17 @@
+{
+  "name": "instagram-monitor-bot",
+  "version": "2.0.0",
+  "description": "Production Discord bot: Instagram ban monitor + followers + time tracking",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js",
+    "dev": "nodemon bot.js",
+    "reset": "rm -f watchlist.db"
+  },
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1",
+    "better-sqlite3": "^9.6.0"
+  },
+  "author": "BrahmjotCodez(1ttp)"
+}
