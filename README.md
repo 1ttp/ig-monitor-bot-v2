@@ -28,9 +28,9 @@ npm install
 cp .env.example .env
 # Add your Discord token to .env
 npm start
+```
 
-
-#**# Commands ##**
+## Commands ##
 
 | Command | Description | Usage | Access |
 |---------|-------------|-------|--------|
