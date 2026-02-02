@@ -1,40 +1,69 @@
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('watchlist.db');
+cat > db.js << 'EOF'
+const fs = require('fs');
+const path = require('path');
 
-db.serialize(() => {
-  db.run(`CREATE TABLE IF NOT EXISTS accounts (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE,
-    channelId TEXT,
-    followers INTEGER DEFAULT 0,
-    lastStatus TEXT DEFAULT 'active',
-    failCount INTEGER DEFAULT 0,
-    startTime TEXT DEFAULT (datetime('now')),
-    lastChangeTime TEXT,
-    createdAt TEXT DEFAULT (datetime('now'))
-  )`);
-});
+const DB_PATH = path.join(__dirname, 'watchlist.json');
+let accounts = [];
+
+function loadDB() {
+  try {
+    accounts = JSON.parse(fs.readFileSync(DB_PATH, 'utf8')) || [];
+  } catch(e) {
+    accounts = [];
+  }
+}
+
+function saveDB() {
+  fs.writeFileSync(DB_PATH, JSON.stringify(accounts, null, 2));
+}
+
+loadDB();
 
 module.exports = {
-  addAccount: (username, channelId, followers, callback) => {
-    db.run(`INSERT OR REPLACE INTO accounts (username, channelId, followers, startTime, lastStatus) 
-            VALUES (?, ?, ?, datetime('now'), ?)`,
-      [username.toLowerCase(), channelId, followers, 'active'], callback);
+  addAccount: (username, channelId, followers) => {
+    accounts = accounts.filter(a => a.username !== username.toLowerCase());
+    accounts.push({
+      username: username.toLowerCase(),
+      channelId,
+      followers: followers || 0,
+      lastStatus: 'active',
+      failCount: 0,
+      startTime: new Date().toISOString(),
+      lastChangeTime: null
+    });
+    saveDB();
   },
-  getAccounts: (callback) => db.all('SELECT * FROM accounts WHERE failCount < 3', callback),
-  updateStatus: (username, status, callback) => {
-    db.run(`UPDATE accounts SET lastStatus = ?, lastChangeTime = datetime('now'), failCount = 0 
-            WHERE username = ?`, [status, username.toLowerCase()], callback);
+  
+  getAccounts: () => accounts.filter(a => a.failCount < 3),
+  
+  updateStatus: (username, status) => {
+    const account = accounts.find(a => a.username === username.toLowerCase());
+    if (account) {
+      account.lastStatus = status;
+      account.lastChangeTime = new Date().toISOString();
+      account.failCount = 0;
+      saveDB();
+    }
   },
-  incrementFail: (username, callback) => {
-    db.run('UPDATE accounts SET failCount = failCount + 1 WHERE username = ?', 
-      [username.toLowerCase()], callback);
+  
+  incrementFail: (username) => {
+    const account = accounts.find(a => a.username === username.toLowerCase());
+    if (account) {
+      account.failCount++;
+      saveDB();
+    }
   },
-  updateFollowers: (username, followers, callback) => {
-    db.run('UPDATE accounts SET followers = ? WHERE username = ?', 
-      [followers, username.toLowerCase()], callback);
+  
+  updateFollowers: (username, followers) => {
+    const account = accounts.find(a => a.username === username.toLowerCase());
+    if (account) {
+      account.followers = followers;
+      saveDB();
+    }
   },
-  getAccount: (username, callback) => {
-    db.get('SELECT * FROM accounts WHERE username = ?', [username.toLowerCase()], callback);
+  
+  getAccount: (username) => {
+    return accounts.find(a => a.username === username.toLowerCase()) || null;
   }
 };
+EOF
