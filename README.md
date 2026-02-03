@@ -22,7 +22,7 @@
 ## 🚀 **QUICK START** *(90 seconds)*
 
 ```bash
-git clone https://github.com/1ttp/ig-monitor-bot-v2
+git clone https://github.com/1ttp/ig-monitor-bot-v2.git
 cd ig-monitor-bot-v2
 npm install
 cp .env.example .env
